@@ -3,18 +3,37 @@ import { useFormik } from 'formik'
 import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 import Logo from '../components/Logo'
+import { useNavigate } from "react-router-dom";
+import { registerUser } from "../services/auth.service"
+// const navigate = useNavigate();
 
 const Register = () => {
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             firstName: '',
             lastName: "",
+            userName:"",
             email: '',
             password: '',
             confirmPassword: '',
         },
-        onSubmit: (values) => {
-            console.log(values)
+        onSubmit: async (userData) => {
+            try{
+                const response = await registerUser(userData)
+                console.log(response.data);
+
+                if(response.data!=201){
+                    alert("User Creation failed")
+                }else{
+                    alert(response.data.message);
+                    navigate("/login");
+                }
+                
+            }catch{
+                console.error();
+                
+            }
         },
 
         validationSchema: yup.object({
@@ -28,6 +47,13 @@ const Register = () => {
                 .string()
                 .required('Last Name is required')
                 .min(3, 'Last Name must be at least 3 characters'),
+
+            userName: yup
+                .string()
+                .required('User Name is required')
+                .min(3, 'User Name must be at least 3 characters')
+                .max(16, 'User Name must be 16 characters or less')
+                .matches(/^[a-zA-Z0-9_]+$/, 'User Name can only contain letters, numbers, and underscores'),
 
             email: yup.string().required('Email is required').email('Invalid email format'),
 
@@ -65,7 +91,7 @@ const Register = () => {
                         id="firstName"
                         name="firstName"
                         type="text"
-                        placeholder=" firstName"
+                        placeholder=" First Name"
                         value={formik.values.firstName}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -85,6 +111,19 @@ const Register = () => {
                     />
                     <small className="text-danger">
                         {formik.touched.lastName && formik.errors.lastName ? formik.errors.lastName : ''}
+                    </small>
+
+                    <input
+                        id="userName"
+                        name="userName"
+                        type="text"
+                        placeholder="User Name"
+                        value={formik.values.userName}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                    />
+                    <small className="text-danger">
+                        {formik.touched.userName && formik.errors.userName ? formik.errors.userName : ''}
                     </small>
 
                     <input
@@ -128,7 +167,7 @@ const Register = () => {
                     </small>
 
                     <button type="submit" className="create-btn">
-                        <Link style={{ textDecoration: "none", color: "inherit" }}>Create Account</Link>
+                        Create Account
                     </button>
                 </form>
 

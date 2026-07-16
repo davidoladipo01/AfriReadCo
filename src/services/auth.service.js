@@ -1,3 +1,4 @@
+
 import axios from "axios"
 import API from "./api";
 
@@ -12,3 +13,5 @@ const loginUser = (credentials)=>{
 const logoutUser =()=>{
     API.post("/auth/logout");
 }
+
+export { registerUser, loginUser, logoutUser }

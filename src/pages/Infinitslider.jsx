@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 
 import bk1 from '../assets/bk1.jpeg'
 import bk10Png from '../assets/bk10.png'

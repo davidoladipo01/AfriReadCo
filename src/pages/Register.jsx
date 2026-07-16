@@ -5,6 +5,7 @@ import * as yup from 'yup'
 import Logo from '../components/Logo'
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/auth.service"
+import { toast } from 'react-toastify';
 // const navigate = useNavigate();
 
 const Register = () => {
@@ -13,26 +14,29 @@ const Register = () => {
         initialValues: {
             firstName: '',
             lastName: "",
-            userName:"",
+            userName: "",
             email: '',
             password: '',
             confirmPassword: '',
         },
         onSubmit: async (userData) => {
-            try{
+            try {
                 const response = await registerUser(userData)
                 console.log(response.data);
 
-                if(response.data!=201){
-                    alert("User Creation failed")
-                }else{
-                    alert(response.data.message);
+                toast.success(response.data.message);
+                
+                setTimeout(() => {
                     navigate("/login");
-                }
-                
-            }catch{
-                console.error();
-                
+                }, 1500);
+
+            } catch (error) {
+                console.error(error);
+
+                toast.error(
+                    error.response?.data?.message ||
+                    "Something went wrong."
+                );
             }
         },
 
@@ -166,8 +170,18 @@ const Register = () => {
                         {formik.touched.confirmPassword && formik.errors.confirmPassword ? formik.errors.confirmPassword : ''}
                     </small>
 
-                    <button type="submit" className="create-btn">
-                        Create Account
+                    <button
+                        type="submit"
+                        className="create-btn"
+                        disabled={formik.isSubmitting}
+                    >
+                        {
+                            formik.isSubmitting
+
+                                ? "Creating..."
+
+                                : "Create Account"
+                        }
                     </button>
                 </form>
 

@@ -11,7 +11,7 @@ const loginUser = (credentials)=>{
 }
 
 const logoutUser =()=>{
-    API.post("/auth/logout");
+    return API.post("/auth/logout");
 }
 
 export { registerUser, loginUser, logoutUser }

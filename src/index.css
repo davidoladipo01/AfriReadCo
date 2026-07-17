@@ -809,6 +809,7 @@ input:focus {
   height: 225px;
   /* object-fit: cover; */
   border-radius: 12px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .books img {
@@ -816,6 +817,13 @@ input:focus {
   height: 300px;
   /* object-fit: cover; */
   border-radius: 12px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.book img:hover,
+.books img:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 30px rgba(43, 43, 43, 0.18);
 }
 
 /* PERSON */
@@ -2104,7 +2112,7 @@ font-size:.8rem;
 }
 
 .cta-composition .book-cover:hover {
-  transform: scale(1.04);
+  transform: translateY(-6px) scale(1.02);
   box-shadow: 0 26px 48px rgba(43, 43, 43, 0.28);
 }
 

@@ -3,6 +3,8 @@ import readingChallengeImg from '../assets/Features/imgreading.webp';
 import discoverBooksImg from '../assets/Features/imgreading2.webp';
 import progressTrackImg from '../assets/Features/imgreading3.webp';
 import discussionsImg from '../assets/Features/imgreading4.webp';
+import FadeUp from './FadeUp';
+import StaggerContainer from './StaggerContainer';
 
 const features = [
   {
@@ -34,7 +36,7 @@ const features = [
 function Features() {
   return (
     <div>
-      <section className="features-section">
+      <FadeUp as="section" className="features-section">
         <div className="features-header">
           <span className='section-tag'>BUILT FOR AFRICAN READERS</span>
 
@@ -46,7 +48,7 @@ function Features() {
           </p>
         </div>
 
-        <div className="features-grid">
+        <StaggerContainer className="features-grid">
           {features.map((feature, index) => (
             <div className="feature-card" key={index}>
               <img src={feature.src} alt={feature.alt} />
@@ -57,8 +59,8 @@ function Features() {
               <p>{feature.text}</p>
             </div>
           ))}
-        </div>
-      </section>
+        </StaggerContainer>
+      </FadeUp>
     </div>
   );
 }

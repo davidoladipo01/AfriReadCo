@@ -1,11 +1,12 @@
 import React from 'react'
 import { FaInstagram, FaFacebookF, FaXTwitter, FaLinkedinIn } from "react-icons/fa6";
 import Logo from './Logo';
+import { motion } from 'framer-motion';
 
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <motion.footer className="footer" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.6, ease: 'easeOut' }}>
       <div className="footer-container">
         <div className="footer-top">
           <div className="footer-brand">
@@ -79,7 +80,7 @@ const Footer = () => {
           </nav>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   )
 }
 

@@ -3,6 +3,7 @@ import designImage from '../assets/design_result_result.webp'
 import Button from './Button'
 import { Link } from 'react-router-dom'
 import Logo from './Logo'
+import { motion } from 'framer-motion'
 
 const Pg_1 = () => {
 
@@ -26,30 +27,30 @@ const Pg_1 = () => {
                     {/* <p className="hero-content title">
                         AfriReadCo
                     </p> */}
-                    <div className='hero-contents2'>Africa's Home <span>for Readers</span></div>
+                    <motion.div className='hero-contents2' initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: 'easeOut', delay: 0.12 }}>Africa's Home <span>for Readers</span></motion.div>
 
 
-                    <div className='hero-contents3'>Because every great African story deserves a reader who truly connects with it.</div>
+                    <motion.div className='hero-contents3' initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: 'easeOut', delay: 0.24 }}>Because every great African story deserves a reader who truly connects with it.</motion.div>
 
-                    <div className="hero-buttons">
+                    <motion.div className="hero-buttons" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: 'easeOut', delay: 0.36 }}>
 
                         <Button to="/register" className='mt-6 inline-block rounded-xl shadow-md bg-black button focus:outline-none focus:ring-2' text='Sign Up' />
                         <a className='underline mt-6 py-3 px-5 text-sm' href=""><Link to={"/login"}>Sign In</Link></a>
 
-                    </div>
+                    </motion.div>
 
                 </div>
 
             </div>
 
-            <div className="hero-right">
+            <motion.div className="hero-right" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: 'easeOut', delay: 0.48 }}>
                 <div className="hero-overlay2"></div>
                 <img
                     src={designImage}
                     alt="African books"
                 />
 
-            </div>
+            </motion.div>
 
         </section>
     )

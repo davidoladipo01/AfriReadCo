@@ -4,6 +4,8 @@ import person3 from '../assets/emeka_result_result.webp'
 import book1 from '../assets/play_result.webp'
 import book2 from '../assets/bk17_result_result.webp'
 import book3 from '../assets/mary_result_result.webp'
+import FadeUp from './FadeUp'
+import StaggerContainer from './StaggerContainer'
 
 const Communites = () => {
   const communities = [
@@ -41,7 +43,7 @@ const Communites = () => {
   return (
       <section className="communities-section">
 
-      <div className="communities-header">
+      <FadeUp className="communities-header">
 
         <span className="section-tag">
           COMMUNITY
@@ -57,9 +59,9 @@ const Communites = () => {
           together.
         </p>
 
-      </div>
+      </FadeUp>
 
-      <div className="communities-grid">
+      <StaggerContainer className="communities-grid">
 
         {communities.map((community) => (
 
@@ -115,7 +117,7 @@ const Communites = () => {
 
         ))}
 
-      </div>
+      </StaggerContainer>
 
     </section>
   )

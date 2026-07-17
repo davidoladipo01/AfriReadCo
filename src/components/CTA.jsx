@@ -4,6 +4,8 @@ import book3 from '../assets/bk12_result.webp'
 import person1 from '../assets/ama_result_result.webp'
 import person2 from '../assets/couple_result_result.webp'
 import person3 from '../assets/emeka_result_result.webp'
+import { motion } from 'framer-motion'
+import FadeUp from './FadeUp'
 
 const CTA = () => {
   return (
@@ -12,7 +14,7 @@ const CTA = () => {
       <div className="cta-bg-glow cta-bg-glow-1" aria-hidden="true" />
       <div className="cta-bg-glow cta-bg-glow-2" aria-hidden="true" />
 
-      <div className="cta-container">
+      <FadeUp className="cta-container">
         {/* LEFT SIDE */}
         <div className="cta-left">
           <span className="cta-badge">JOIN AFRIREADCO</span>
@@ -29,10 +31,10 @@ const CTA = () => {
           </p>
 
           <div className="cta-buttons">
-            <button className="cta-btn cta-btn-primary">Join for Free</button>
-            <button className="cta-btn cta-btn-secondary">
+            <motion.button className="cta-btn cta-btn-primary" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.2 }}>Join for Free</motion.button>
+            <motion.button className="cta-btn cta-btn-secondary" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.2 }}>
               Explore Communities
-            </button>
+            </motion.button>
           </div>
         </div>
 
@@ -85,7 +87,7 @@ const CTA = () => {
             <div className="abstract-shape shape-ring" />
           </div>
         </div>
-      </div>
+      </FadeUp>
     </section>
   )
 }

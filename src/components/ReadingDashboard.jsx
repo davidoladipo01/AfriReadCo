@@ -1,4 +1,6 @@
 import book2 from '../assets/bk17_result_result.webp'
+import FadeUp from './FadeUp'
+import StaggerContainer from './StaggerContainer'
 const ReadingDashboard = () => {
 
   return (
@@ -8,7 +10,7 @@ const ReadingDashboard = () => {
 
         {/* LEFT */}
 
-        <div className="dashboard-content">
+        <FadeUp className="dashboard-content">
 
           <span className="dashboard-tag">
             READING DASHBOARD
@@ -24,7 +26,7 @@ const ReadingDashboard = () => {
             African literature.
           </p>
 
-          <div className="dashboard-features">
+          <StaggerContainer className="dashboard-features">
 
             <div className="feature">
               <span className="material-symbols-outlined">
@@ -59,13 +61,13 @@ const ReadingDashboard = () => {
               </div>
             </div>
 
-          </div>
+          </StaggerContainer>
 
-        </div>
+        </FadeUp>
 
         {/* RIGHT */}
 
-        <div className="dashboard-card">
+        <FadeUp className="dashboard-card" delay={0.12}>
 
           <div className="goal-badge">
             2026 Goal
@@ -175,7 +177,7 @@ const ReadingDashboard = () => {
 
           </div>
 
-        </div>
+        </FadeUp>
 
       </div>
 

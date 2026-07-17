@@ -24,11 +24,11 @@ const Register = () => {
                 const response = await registerUser(userData)
                 console.log(response.data);
 
-                toast.success(response.data.message);
-                
-                setTimeout(() => {
-                    navigate("/login");
-                }, 1500);
+                toast.success("Account created successfully!", {
+                    onClose: () => navigate("/login"),
+                });
+
+
 
             } catch (error) {
                 console.error(error);

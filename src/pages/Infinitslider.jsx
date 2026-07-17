@@ -131,7 +131,7 @@ const Infinitslider = () => {
       <div className="slider left">
         {[...rowOne, ...rowOne].map((item, index) => (
           <div key={index} className={item.type}>
-            <img src={item.src} alt={item.alt} />
+            <img src={item.src} alt={item.alt} loading='lazy' />
           </div>
         ))}
       </div>
@@ -141,7 +141,7 @@ const Infinitslider = () => {
       <div className="slider right">
         {[...rowTwo, ...rowTwo].map((item, index) => (
           <div key={index} className={item.type}>
-            <img src={item.src} alt={item.alt} />
+            <img src={item.src} alt={item.alt} loading='lazy' />
           </div>
         ))}
       </div>

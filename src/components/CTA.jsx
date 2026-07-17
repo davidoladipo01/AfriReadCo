@@ -1,9 +1,9 @@
-import book1 from '../assets/play.webp'
-import book2 from '../assets/bk17.jpeg'
-import book3 from '../assets/bk12.jpeg'
-import person1 from '../assets/ama.jpg'
-import person2 from '../assets/couple.jpg'
-import person3 from '../assets/emeka.jpg'
+import book1 from '../assets/play_result.webp'
+import book2 from '../assets/bk17_result_result.webp'
+import book3 from '../assets/bk12_result.webp'
+import person1 from '../assets/ama_result_result.webp'
+import person2 from '../assets/couple_result_result.webp'
+import person3 from '../assets/emeka_result_result.webp'
 
 const CTA = () => {
   return (

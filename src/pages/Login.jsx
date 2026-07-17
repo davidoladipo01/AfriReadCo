@@ -3,26 +3,33 @@ import { Link } from 'react-router-dom'
 import { useFormik } from "formik"
 import * as yup from "yup"
 import Logo from '../components/Logo'
+import { jwtDecode } from "jwt-decode";
+import { loginUser } from '../services/auth.service';
 
 
 const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
       email: "",
       password: ""
     },
 
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (credentials) => {
+      console.log(credentials);
+      try{
+        const response = await loginUser(credentials)
+        console.log(response.data);
+        
+
+      }catch(error){
+        console.error(error);
+        
+      }
 
     },
 
     validationSchema: yup.object({
-      firstName: yup.string().required("First Name is required").min(3, "First Name must be at least 3 characters"),
-      lastName: yup.string().required("Last Name is required").min(3, "Last Name must be at least 3 characters"),
       email: yup.string().required("Email is required").email("Invalid email format"),
       password: yup.string().required("Password is required").matches(/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "Password must be at least 8 characters long and contain at least one uppercase letter, one number, and one special character")
     })

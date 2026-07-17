@@ -1,5 +1,5 @@
 import React from 'react'
-import designImage from '../assets/design.jpg'
+import designImage from '../assets/design_result_result.webp'
 import Button from './Button'
 import { Link } from 'react-router-dom'
 import Logo from './Logo'

@@ -1,4 +1,4 @@
-import book2 from '../assets/bk17.jpeg'
+import book2 from '../assets/bk17_result_result.webp'
 const ReadingDashboard = () => {
 
   return (

@@ -5,10 +5,16 @@ import Preferences from '../components/Onboarding/Preferences';
 import FavouriteStep from '../components/Onboarding/FavouriteStep';
 import ReadingStep from '../components/Onboarding/ReadingStep';
 import LocationStep from '../components/Onboarding/LocationStep';
+import ProfileStep from '../components/Onboarding/ProfileStep';
+import { toast } from 'react-toastify';
+import { completeOnboarding } from '../services/user.services';
+import Celebration from '../components/Onboarding/Celebration';
 
 const TOTAL_STEPS = 6;
 
 const Onboarding = () => {
+    const [loading, setLoading] = useState(false);
+    const [showCelebration, setShowCelebration] = useState(false);
     const [step, setstep] = useState(1);
     const [formData, setFormData] = useState({
 
@@ -41,6 +47,72 @@ const Onboarding = () => {
             setstep(step - 1)
         };
     }
+
+    const finishOnboarding = async () => {
+
+        try {
+
+            setLoading(true);
+
+            const data = new FormData();
+
+            data.append("avatar", formData.avatar);
+
+            data.append("bio", formData.bio);
+
+            data.append(
+                "genres",
+                JSON.stringify(formData.interests)
+            );
+
+            data.append(
+                "favoriteAuthors",
+                JSON.stringify(formData.favoriteAuthors)
+            );
+
+            data.append(
+                "favoriteBooks",
+                JSON.stringify(formData.favoriteBooks)
+            );
+
+            data.append(
+                "readingGoal",
+                formData.readingGoal
+            );
+
+            data.append(
+                "location",
+                formData.location
+            );
+
+            data.append(
+                "timezone",
+                formData.timezone
+            );
+
+            await completeOnboarding(data);
+
+            setShowCelebration(true);
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            toast.error("Unable to complete onboarding.");
+
+        }
+
+        finally {
+
+            setLoading(false);
+
+        }
+
+    }
+
+
     return (
         <section className="onboarding">
 
@@ -117,9 +189,36 @@ const Onboarding = () => {
 
                         previousStep={previousStep}
 
+                        loading={loading}
+
                     />
 
                 )}
+
+                {step === 6 && (
+
+                    <ProfileStep
+
+                        formData={formData}
+
+                        setFormData={setFormData}
+
+                        previousStep={previousStep}
+
+                        finishOnboarding={finishOnboarding}
+
+                        loading={loading}
+
+                    />
+
+                )}
+                {
+
+                    showCelebration &&
+
+                    <Celebration />
+
+                }
 
             </div>
 

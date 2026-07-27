@@ -36,7 +36,17 @@ const Login = () => {
             sameSite: "Lax"
           })
 
-          toast.success("Login successful", { onClose: () => navigate("/dashboard") })
+          const user = response.data.data;
+
+          toast.success("Login successful!", {
+            onClose: () => {
+              if (user.onboardingCompleted) {
+                navigate("/dashboard");
+              } else {
+                navigate("/onboard");
+              }
+            },
+          });
 
         }
 

@@ -9,6 +9,7 @@ import ProfileStep from '../components/Onboarding/ProfileStep';
 import { toast } from 'react-toastify';
 import { completeOnboarding } from '../services/user.services';
 import Celebration from '../components/Onboarding/Celebration';
+import { useNavigate } from 'react-router-dom';
 
 const TOTAL_STEPS = 6;
 
@@ -16,6 +17,7 @@ const Onboarding = () => {
     const [loading, setLoading] = useState(false);
     const [showCelebration, setShowCelebration] = useState(false);
     const [step, setstep] = useState(1);
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
 
         interests: [],
@@ -25,6 +27,8 @@ const Onboarding = () => {
         favoriteBooks: [],
 
         readingGoal: "",
+
+        genres: [],
 
         country: "",
 
@@ -93,6 +97,12 @@ const Onboarding = () => {
             await completeOnboarding(data);
 
             setShowCelebration(true);
+
+            toast.success("Welcome to AfriReadCo!");
+
+            setTimeout(() => {
+                navigate("/dashboard");
+            }, 2500);
 
         }
 
@@ -219,6 +229,7 @@ const Onboarding = () => {
                     <Celebration />
 
                 }
+
 
             </div>
 

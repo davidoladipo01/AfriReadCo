@@ -28,18 +28,6 @@ const Celebration = () => {
 
             />
 
-            <div className="celebration-overlay">
-
-                <h1>🎉 Welcome to AfriReadCo!</h1>
-
-                <p>
-
-                    Your reading journey begins today.
-
-                </p>
-
-            </div>
-
         </>
     )
 }

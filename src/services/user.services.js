@@ -1,15 +1,16 @@
+import Cookies from "universal-cookie";
 import API from "./api";
 
-export const completeOnboarding = (formData) => {
+const cookies = new Cookies();
 
+export const completeOnboarding = (formData) => {
     return API.patch(
-        "/users/completeOnboarding",
+        "/users/onboard",
         formData,
         {
             headers: {
-                "Content-Type": "multipart/form-data"
-            }
+                Authorization: `Bearer ${cookies.get("token")}`
+            },
         }
     );
-
 };

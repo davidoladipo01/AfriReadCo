@@ -14,3 +14,15 @@ export const completeOnboarding = (formData) => {
         }
     );
 };
+
+export const getCurrentUser = () => {
+
+    const token = new Cookies().get("token");
+
+    return API.get("/me", {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+
+};

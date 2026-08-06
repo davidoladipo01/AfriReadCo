@@ -7,6 +7,9 @@ import Sidebar from "./Sidebar";
 const DashboardLayout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const location = useLocation();
+    
+    // Check if we're on the exact dashboard page
+    const isDashboardHome = location.pathname === "/dashboard";
 
     useEffect(() => {
         setIsSidebarOpen(false);
@@ -25,20 +28,27 @@ const DashboardLayout = () => {
         <div className="dashboard-layout">
             <DashboardNavbar
                 onToggleSidebar={() => setIsSidebarOpen((open) => !open)}
+                isDashboardHome={isDashboardHome}
             />
             <div className="dashboard-body">
-                <Sidebar
-                    isOpen={isSidebarOpen}
-                    onNavigate={() => setIsSidebarOpen(false)}
-                />
+                {/* Only show sidebar if NOT on dashboard home OR if sidebar is open (mobile) */}
+                {(!isDashboardHome || isSidebarOpen) && (
+                    <Sidebar
+                        isOpen={isSidebarOpen}
+                        onNavigate={() => setIsSidebarOpen(false)}
+                    />
+                )}
+                
+                {/* Backdrop only shows when sidebar is open on mobile */}
                 <button
                     type="button"
                     className={`sidebar-backdrop ${isSidebarOpen ? "visible" : ""}`}
                     aria-label="Close navigation"
                     onClick={() => setIsSidebarOpen(false)}
                 />
+                
                 <main
-                    className="dashboard-main"
+                    className={`dashboard-main ${!isDashboardHome ? "with-sidebar" : ""}`}
                 >
                     <Outlet />
                     <DashboardFooter />

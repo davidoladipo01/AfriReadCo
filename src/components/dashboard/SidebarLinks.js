@@ -24,11 +24,6 @@ const SidebarLinks = [
         icon: "monitoring",
         path: "/dashboard/analytics",
     },
-    {
-        title: "Settings",
-        icon: "settings",
-        path: "/dashboard/settings",
-    },
 ];
 
 export default SidebarLinks;

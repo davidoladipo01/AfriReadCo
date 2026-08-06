@@ -1,3 +1,23 @@
+// import HeroSection from "../components/dashboard/HeroSection";
+// import DashboardStats from "../components/dashboard/DashboardStats";
+// import ReadingOverview from "../components/dashboard/ReadingOverview";
+// import BookshelfAndActivity from "../components/dashboard/BookshelfAndActivity";
+// import ReadingHeatmap from "../components/dashboard/ReadingHeatmap";
+
+// const Dashboard = () => {
+//     return (
+//         <div className="dashboard-page max-w-container-max mx-auto px-margin-desktop py-12 flex flex-col gap-12">
+//             <HeroSection />
+//             <DashboardStats />
+//             <ReadingOverview />
+//             <BookshelfAndActivity />
+//             <ReadingHeatmap />
+//         </div>
+//     );
+// };
+
+// export default Dashboard;
+
 import HeroSection from "../components/dashboard/HeroSection";
 import DashboardStats from "../components/dashboard/DashboardStats";
 import ReadingOverview from "../components/dashboard/ReadingOverview";
@@ -6,7 +26,7 @@ import ReadingHeatmap from "../components/dashboard/ReadingHeatmap";
 
 const Dashboard = () => {
     return (
-        <div className="dashboard-page max-w-container-max mx-auto px-margin-desktop py-12 flex flex-col gap-12">
+        <div className="dashboard-page flex flex-col gap-12">
             <HeroSection />
             <DashboardStats />
             <ReadingOverview />

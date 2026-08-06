@@ -1,0 +1,39 @@
+%YAML 1.1
+---
+name: Example Config
+version: 1.0.0
+schema: v1
+
+# Define which models can be used
+# https://continue.dev
+models:
+  - name: "DeepSeek R1"
+    provider: openai
+    apiBase: "https://nvidia.com"
+    model: "deepseek-ai/deepseek-r1"
+    apiKey: "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"
+    roles:
+      - chat
+      - edit
+      - apply
+
+  - name: "Llama 3.3 70B"
+    provider: openai
+    apiBase: "https://nvidia.com"
+    model: "meta/llama-3.3-70b-instruct"
+    apiKey: "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"
+    roles:
+      - chat
+      - edit
+      - apply
+
+  - name: "Qwen 2.5 Coder 7B"
+    provider: openai
+    apiBase: "https://nvidia.com"
+    model: "qwen/qwen2.5-coder-7b-instruct"
+    apiKey: "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"
+    roles:
+      - autocomplete
+    autocompleteOptions:
+      debounceDelay: 250
+      maxPromptTokens: 1024

@@ -78,7 +78,7 @@ const Reader = () => {
         </aside>
 
         <main className="reader-content">
-          {book.fileType === "epub" && <EpubReader url={readingUrl} />}
+          {book.fileType === "epub" && <EpubReader url={`http://localhost:5005/api/reading/file/${book._id}`} />}
         </main>
       </div>
     </div>

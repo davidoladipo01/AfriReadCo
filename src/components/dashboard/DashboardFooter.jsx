@@ -3,7 +3,7 @@ const DashboardFooter = () => {
     <footer className="bg-surface-container-highest dark:bg-surface-dim w-full mt-16 border-t border-outline-variant">
       <div className="flex flex-col md:flex-row justify-between items-center px-margin-desktop py-12 w-full max-w-container-max mx-auto gap-8">
         <div className="flex flex-col items-center md:items-start gap-4">
-          <p className="font-label-md text-on-surface-variant">© 2024 AfriReadCo. Honoring the Modern Griot.</p>
+          <p className="font-label-md text-on-surface-variant">© 2026 AfriReadCo. Honoring the Modern Griot.</p>
         </div>
         <div className="flex flex-wrap justify-center gap-8 font-label-md">
           <a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>

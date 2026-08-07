@@ -185,17 +185,17 @@ const Register = () => {
                     </button>
                 </form>
 
-                <div className="divider">
+                {/* <div className="divider">
                     <span>or continue with</span>
-                </div>
+                </div> */}
 
-                <button className="google-btn" type="button">
+                {/* <button className="google-btn" type="button">
                     <img
                         src="https://www.svgrepo.com/show/475656/google-color.svg"
                         alt="Google"
                     />
                     Sign up with Google
-                </button>
+                </button> */}
 
                 <p className="signin-text">
                     Already have an account?<Link to={"/Login"}>Login</Link>

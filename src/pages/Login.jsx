@@ -136,13 +136,13 @@ const Login = () => {
           </div>
 
           {/* Social login */}
-          <button className="google-btn" type="button">
+          {/* <button className="google-btn" type="button">
             <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"
               alt="Google"
             />
             Continue with Google
-          </button>
+          </button> */}
         </form>
 
         <p className="ar-footer-text">

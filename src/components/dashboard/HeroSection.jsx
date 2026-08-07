@@ -74,7 +74,7 @@ const HeroSection = () => {
               READING STREAK
             </p>
             <p className="font-display-lg text-headline-lg text-primary">
-              18 Days
+              0 Days
             </p>
           </div>
           <div className="w-16 h-16 bg-primary-container/20 rounded-full flex items-center justify-center">

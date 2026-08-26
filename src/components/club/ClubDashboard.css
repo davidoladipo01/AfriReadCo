@@ -1,0 +1,118 @@
+.club-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.club-header {
+    display: flex;
+    gap: 24px;
+    padding: 24px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 16px;
+    color: white;
+    margin-bottom: 24px;
+}
+
+.club-cover {
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.club-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.club-cover-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    background: #2d2d44;
+}
+
+.club-info h1 {
+    margin: 0 0 8px 0;
+    font-size: 28px;
+}
+
+.club-description {
+    color: #b0b0c0;
+    margin: 0 0 12px 0;
+    line-height: 1.5;
+}
+
+.club-meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.privacy-badge {
+    background: #e94560;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.current-book {
+    background: rgba(255,255,255,0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.club-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0;
+}
+
+.club-tabs button {
+    padding: 12px 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    color: #666;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.club-tabs button:hover {
+    color: #333;
+}
+
+.club-tabs button.active {
+    color: #e94560;
+    border-bottom-color: #e94560;
+}
+
+.club-content {
+    background: white;
+    border-radius: 12px;
+    min-height: 500px;
+}
+
+.club-loading, .club-error {
+    text-align: center;
+    padding: 60px;
+    font-size: 18px;
+}
+
+.club-error {
+    color: #e94560;
+}

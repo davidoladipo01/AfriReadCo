@@ -1,59 +1,131 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ePub from "epubjs";
 import axios from "axios";
+import { logReadingActivity } from "../../services/reading.service";
 
-const EpubReader = ({ url }) => {
+const EpubReader = ({ url, bookId }) => {
   const viewerRef = useRef(null);
+  const bookRef = useRef(null);
+  const renditionRef = useRef(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    let book;
+    let cancelled = false;
+    let secondsAccumulated = 0;
+    let isVisible = !document.hidden;
+
+    const flush = () => {
+      const minutes = Math.floor(secondsAccumulated / 60);
+      if (minutes > 0) {
+        secondsAccumulated -= minutes * 60;
+        logReadingActivity(bookId, minutes).catch(() => { });
+      }
+    };
+
+    const tick = setInterval(() => {
+      if (isVisible) secondsAccumulated += 1;
+      if (secondsAccumulated >= 60) flush();
+    }, 1000);
+
+    const handleVisibility = () => {
+      isVisible = !document.hidden;
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
 
     const loadBook = async () => {
       try {
+        setLoading(true);
+        setError(null);
+
         const response = await axios.get(url, {
           responseType: "arraybuffer",
         });
 
-        book = ePub(response.data);
+        if (cancelled) return;
 
-        const rendition = book.renderTo(
-          viewerRef.current,
-          {
-            width: "100%",
-            height: "100%",
-            // epub.js renders each chapter inside a sandboxed iframe.
-            // Without this flag it only sets sandbox="allow-same-origin",
-            // which blocks script execution inside that iframe and throws
-            // "Blocked script execution in 'about:srcdoc' because the
-            // document's frame is sandboxed and the 'allow-scripts'
-            // permission is not set."
-            allowScriptedContent: true,
-          }
-        );
+        const book = ePub(response.data);
+        bookRef.current = book;
 
-        rendition.display();
-      } catch (error) {
-        console.error(error);
+        await book.ready;
+        if (cancelled) return;
+
+        const rendition = book.renderTo(viewerRef.current, {
+          width: "100%",
+          height: "100%",
+          flow: "paginated",
+          allowScriptedContent: true,
+        });
+        renditionRef.current = rendition;
+
+        await rendition.display();
+        book.locations.generate(1600).then(() => {
+          if (cancelled) return;
+
+          rendition.on("relocated", (location) => {
+            const epubLocation = location.start.cfi;
+            const percentage = book.locations.percentageFromCfi(epubLocation);
+
+            updateReadingProgress(bookId, {
+              epubLocation,
+              percentage: Math.round(percentage * 100),
+            }).catch(() => { });
+          });
+        });
+
+        setLoading(false);
+      } catch (err) {
+        if (!cancelled) {
+          console.error(err);
+          setError("Failed to load book.");
+          setLoading(false);
+        }
       }
     };
 
     loadBook();
 
-    return () => {
-      if (book) {
-        book.destroy();
-      }
+    const handleResize = () => renditionRef.current?.resize();
+    window.addEventListener("resize", handleResize);
+
+    const handleKey = (e) => {
+      if (e.key === "ArrowRight") renditionRef.current?.next();
+      if (e.key === "ArrowLeft") renditionRef.current?.prev();
     };
-  }, [url]);
+    window.addEventListener("keyup", handleKey);
+
+    return () => {
+      clearInterval(tick);
+      document.removeEventListener("visibilitychange", handleVisibility);
+      flush(); // log any partial minute accrued before navigating away
+      cancelled = true;
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("keyup", handleKey);
+      renditionRef.current?.destroy();
+      bookRef.current?.destroy();
+      renditionRef.current = null;
+      bookRef.current = null;
+    };
+  }, [url, bookId],);
 
   return (
-    <div
-      ref={viewerRef}
-      style={{
-        width: "100%",
-        height: "100vh",
-      }}
-    />
+    <div className="epub-wrapper">
+      {error && <p className="epub-error">{error}</p>}
+      {loading && <p className="epub-loading">Loading book...</p>}
+
+      <div
+        ref={viewerRef}
+        className="epub-viewer"
+        style={{ visibility: loading ? "hidden" : "visible" }}
+      />
+
+      {!loading && !error && (
+        <div className="epub-nav">
+          <button onClick={() => renditionRef.current?.prev()}>◀</button>
+          <button onClick={() => renditionRef.current?.next()}>▶</button>
+        </div>
+      )}
+    </div>
   );
 };
 

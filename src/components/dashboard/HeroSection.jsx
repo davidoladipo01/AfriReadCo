@@ -2,12 +2,21 @@
 
 
 // import React from 'react'
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDashboard } from "../../context/DashboardContext";
 import { africanQuotes, heroMessages } from "../../data/dashboardHeroData";
+import { getReadingStreak } from "../../services/reading.service";
 
 const HeroSection = () => {
   const { user } = useDashboard();
+  const [streak, setStreak] = useState(0);
+
+  useEffect(() => {
+    getReadingStreak()
+      .then((res) => setStreak(res.data.data.currentStreak))
+      .catch(() => setStreak(0));
+  }, []);
+
 
   const heroMessage = useMemo(() => {
     const messages = [...heroMessages];
@@ -65,7 +74,7 @@ const HeroSection = () => {
             "{sideQuote.quote}"
           </p>
           <p className="font-label-md uppercase tracking-widest text-primary">
-             — {sideQuote.author}
+            — {sideQuote.author}
           </p>
         </div>
         <div className="bento-card flex items-center justify-between border-primary/20 bg-primary-fixed/10">
@@ -73,9 +82,7 @@ const HeroSection = () => {
             <p className="text-label-md text-on-surface-variant font-bold">
               READING STREAK
             </p>
-            <p className="font-display-lg text-headline-lg text-primary">
-              0 Days
-            </p>
+            <p className="font-display-lg text-headline-lg text-primary">{streak} Days</p>
           </div>
           <div className="w-16 h-16 bg-primary-container/20 rounded-full flex items-center justify-center">
             <span

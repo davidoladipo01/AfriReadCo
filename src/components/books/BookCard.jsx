@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { getBookCoverUrl } from "../../utils/bookCover";
 
 const BookCard = ({ book }) => {
   return (
@@ -7,7 +8,7 @@ const BookCard = ({ book }) => {
       className="book-card"
     >
       <div className="book-card-cover">
-        <img src={book.coverImage} alt={book.title} />
+        <img src={getBookCoverUrl(book)} alt={book.title} />
         <div className="book-card-overlay">
           <span className="material-symbols-outlined">menu_book</span>
         </div>

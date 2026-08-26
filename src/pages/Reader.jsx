@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getReadingBook } from "../services/reading.service";
+import { getReadingBook, startReadingBook } from "../services/reading.service";
 import EpubReader from "../components/reader/EpubReader";
 
 const Reader = () => {
@@ -14,8 +14,8 @@ const Reader = () => {
     const fetchBook = async () => {
       try {
         const response = await getReadingBook(id);
-        console.log("READER RESPONSE:", response.data);
         setReaderData(response.data.data);
+        startReadingBook(id).catch((err) => console.error(err));
       } catch (error) {
         console.error(error);
       } finally {
@@ -36,8 +36,7 @@ const Reader = () => {
     return <p>Book unavailable</p>;
   }
 
-  const readingUrl =
-     book.epubUrl || book.pdfUrl || book.downloadUrl;
+  const readingUrl = `${import.meta.env.VITE_DEV_BASE_URL}/api/reading/file/${book._id}`;
 
   return (
     <div className="reader-page">
@@ -52,35 +51,11 @@ const Reader = () => {
             <p>{book.authors?.join(", ")}</p>
           </div>
         </div>
-
-        <div className="reader-actions">
-          <button>
-            <span className="material-symbols-outlined">bookmark</span>
-          </button>
-
-          <button>
-            <span className="material-symbols-outlined">search</span>
-          </button>
-
-          <button>
-            <span className="material-symbols-outlined">settings</span>
-          </button>
-        </div>
       </header>
 
-      <div className="reader-body">
-        <aside className="reader-sidebar">
-          <h4>Reading Tools</h4>
-
-          <button>Bookmarks</button>
-          <button>Highlights</button>
-          <button>Notes</button>
-        </aside>
-
-        <main className="reader-content">
-          {book.fileType === "epub" && <EpubReader url={`http://localhost:5005/api/reading/file/${book._id}`} />}
-        </main>
-      </div>
+      <main className="reader-content">
+        {book.fileType === "epub" && <EpubReader url={readingUrl} bookId={book._id} />}
+      </main>
     </div>
   );
 };

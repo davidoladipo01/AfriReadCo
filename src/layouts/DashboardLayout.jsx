@@ -10,6 +10,7 @@ const DashboardLayout = () => {
     
     // Check if we're on the exact dashboard page
     const isDashboardHome = location.pathname === "/dashboard";
+    const isClubDashboard = /^\/dashboard\/communities\//.test(location.pathname);
 
     useEffect(() => {
         setIsSidebarOpen(false);
@@ -51,7 +52,7 @@ const DashboardLayout = () => {
                     className={`dashboard-main ${!isDashboardHome ? "with-sidebar" : ""}`}
                 >
                     <Outlet />
-                    <DashboardFooter />
+                    {!isClubDashboard && <DashboardFooter />}
                 </main>
             </div>
         </div>

@@ -30,6 +30,7 @@ const Login = () => {
 
         } else {
           const decoded = jwtDecode(response.data.token)
+          console.log("Decoded token:", decoded);
 
           cookies.set("token", response.data.token, {
             expires: new Date(decoded.exp * 1000), path: "/",
@@ -37,6 +38,7 @@ const Login = () => {
           })
 
           const user = response.data.data;
+          console.log(user)
 
           toast.success("Login successful!", {
             onClose: () => {

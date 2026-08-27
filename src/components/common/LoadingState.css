@@ -1,0 +1,34 @@
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 160px;
+    padding: 32px 24px;
+    color: #5A3E2B;
+    text-align: center;
+}
+
+.loading-state-spinner {
+    width: 26px;
+    height: 26px;
+    border: 2px solid #E8D9C8;
+    border-top-color: #C65D3B;
+    border-radius: 50%;
+    animation: loading-state-rotate .8s linear infinite;
+}
+
+.loading-state-message {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: .9rem;
+    font-style: italic;
+}
+
+@keyframes loading-state-rotate {
+    to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .loading-state-spinner { animation: none; }
+}

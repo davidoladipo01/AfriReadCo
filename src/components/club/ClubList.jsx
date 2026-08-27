@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import API from '../../services/api';
 import './ClubList.css';
 import Cookies from 'universal-cookie';
+import LoadingState from '../common/LoadingState';
 
 const ClubList = ({ user }) => {
     const [clubs, setClubs] = useState([]);
@@ -70,30 +71,31 @@ const ClubList = ({ user }) => {
         return matchesSearch && matchesFilter;
     });
 
-    if (loading) return <div className="clubs-loading">Loading clubs...</div>;
+    if (loading) return <LoadingState message="Loading clubs..." />;
 
     return (
         <div className="club-list">
             <div className="clubs-header">
-                <h2>📚 Book Clubs</h2>
+                <div className="clubs-heading">
+                    <span className="material-symbols-outlined clubs-heading-icon" aria-hidden="true">menu_book</span>
+                    <div><h2>Book Clubs</h2><p>Find your people. Read together.</p></div>
+                </div>
                 <Link to="/dashboard/communities/create" className="btn-primary">
-                    + Create Club
+                    <span className="material-symbols-outlined" aria-hidden="true">add</span> Create Club
                 </Link>
             </div>
 
             <div className="clubs-filters">
-                <input
-                    type="text"
-                    placeholder="Search clubs..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="search-input"
-                />
-                <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-                    <option value="all">All Clubs</option>
-                    <option value="public">Public</option>
-                    <option value="invite-only">Invite Only</option>
-                </select>
+                <label className="search-field">
+                    <span className="material-symbols-outlined" aria-hidden="true">search</span>
+                    <input type="text" placeholder="Search clubs..." value={search} onChange={(e) => setSearch(e.target.value)} className="search-input" />
+                </label>
+                <label className="filter-field">
+                    <span className="material-symbols-outlined" aria-hidden="true">tune</span>
+                    <select value={filter} onChange={(e) => setFilter(e.target.value)} aria-label="Filter clubs">
+                        <option value="all">All Clubs</option><option value="public">Public</option><option value="invite-only">Invite Only</option>
+                    </select>
+                </label>
             </div>
 
             <div className="clubs-grid">
@@ -111,7 +113,7 @@ const ClubList = ({ user }) => {
                                 {club.coverImage ? (
                                     <img src={club.coverImage} alt={club.name} />
                                 ) : (
-                                    <div className="club-card-placeholder">📚</div>
+                                    <div className="club-card-placeholder" aria-hidden="true"><span className="material-symbols-outlined">menu_book</span></div>
                                 )}
                             </div>
                             <div className="club-card-content">
@@ -124,23 +126,23 @@ const ClubList = ({ user }) => {
 
                                 <div className="club-card-meta">
                                     <span className={`privacy-tag ${club.privacy}`}>
+                                        <span className="material-symbols-outlined" aria-hidden="true">{club.privacy === 'public' ? 'public' : 'lock'}</span>
                                         {club.privacy}
                                     </span>
-                                    <span>{club.members?.length || 0} members</span>
+                                    <span className="members-count"><span className="material-symbols-outlined" aria-hidden="true">groups</span>{club.members?.length || 0} members</span>
                                 </div>
 
                                 {(club.currentBookId || club.currentBook) && (
                                     <div className="club-current-book">
-                                        <small>
-                                            📖 Reading: {(club.currentBookId || club.currentBook).title}
-                                        </small>
+                                        <span className="material-symbols-outlined" aria-hidden="true">auto_stories</span>
+                                        <small><span>Currently reading</span>{(club.currentBookId || club.currentBook).title}</small>
                                     </div>
                                 )}
 
                                 <div className="club-card-actions">
                                     {isMember ? (
                                         <Link to={`/dashboard/communities/${club._id}`} className="btn-enter">
-                                            Enter Club →
+                                            Enter Club <span className="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
                                         </Link>
                                     ) : (
                                         <button
@@ -157,6 +159,13 @@ const ClubList = ({ user }) => {
                     );
                 })}
             </div>
+            {!filteredClubs.length && (
+                <div className="clubs-empty">
+                    <span className="material-symbols-outlined" aria-hidden="true">menu_book</span>
+                    <h3>No clubs found</h3>
+                    <p>Try a different search or browse another club type.</p>
+                </div>
+            )}
         </div>
     );
 };

@@ -3,6 +3,7 @@ import { getBooks } from "../services/book.service";
 import { searchBooksAPI } from "../services/reading.service";
 import BookCard from "../components/books/BookCard";
 import UploadBookModal from "../components/books/UploadBookModal";
+import LoadingState from "../components/common/LoadingState";
 
 const Books = () => {
   const [books, setBooks] = useState([]);
@@ -40,7 +41,7 @@ const Books = () => {
   };
 
   if (loading) {
-    return <p>Loading books...</p>;
+    return <LoadingState message="Loading books..." />;
   }
 
   return (

@@ -52,7 +52,43 @@
     min-height: 100px;
 }
 
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.create-club .btn-primary,
+.create-club .btn-secondary {
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
 .create-club .btn-primary {
-    padding: 14px;
-    font-size: 16px;
+    background: #e94560;
+    border: 1px solid #e94560;
+    color: #fff;
+}
+
+.create-club .btn-secondary {
+    background: #f5f5f5;
+    border: 1px solid #d9d9d9;
+    color: #333;
+}
+
+.create-club .btn-primary:hover,
+.create-club .btn-secondary:hover {
+    transform: translateY(-1px);
+}
+
+.create-club .btn-primary:disabled,
+.create-club .btn-secondary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
 }

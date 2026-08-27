@@ -3,48 +3,33 @@ import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../services/user.services";
 
 const UserDropdown = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const handleLogout = async () => {
-        await logoutUser();
+  const handleLogout = async () => {
+    await logoutUser();
+    navigate("/");
+  };
 
-        navigate("/");
-    };
+  return (
+    <div className="user-dropdown">
+      <button onClick={() => navigate("/dashboard/profile")}>
+        <User size={18} />
+        Profile
+      </button>
 
-    return (
+      <button onClick={() => navigate("/dashboard/settings")}>
+        <Settings size={18} />
+        Settings
+      </button>
 
-        <div className="user-dropdown">
+      <hr />
 
-            <button>
-
-                <User size={18} />
-
-                Profile
-
-            </button>
-
-            <button>
-
-                <Settings size={18} />
-
-                Settings
-
-            </button>
-
-            <hr />
-
-            <button className="logout" onClick={handleLogout}>
-
-                <LogOut size={18} />
-
-                Logout
-
-            </button>
-
-        </div>
-
-    );
-
+      <button className="logout" onClick={handleLogout}>
+        <LogOut size={18} />
+        Logout
+      </button>
+    </div>
+  );
 };
 
 export default UserDropdown;

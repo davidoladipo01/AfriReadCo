@@ -82,3 +82,20 @@ export const updateReadingProgress = (bookId, data) => {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+
+export const getReadingGoal = () => {
+  const token = cookies.get("token");
+  return API.get("/api/reading/goal", { headers: { Authorization: `Bearer ${token}` } });
+};
+
+export const getTodayActivity = () => {
+  const token = cookies.get("token");
+  return API.get("/api/reading/today", { headers: { Authorization: `Bearer ${token}` } });
+};
+
+export const getProfile = () => {
+  const token = cookies.get("token");
+  return API.get("/api/reading/profile", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};

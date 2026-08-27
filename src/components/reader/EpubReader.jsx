@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import ePub from "epubjs";
 import axios from "axios";
-import { logReadingActivity } from "../../services/reading.service";
+import { logReadingActivity, updateReadingProgress } from "../../services/reading.service";
+import LoadingState from "../common/LoadingState";
 
 const EpubReader = ({ url, bookId }) => {
   const viewerRef = useRef(null);
@@ -111,7 +112,7 @@ const EpubReader = ({ url, bookId }) => {
   return (
     <div className="epub-wrapper">
       {error && <p className="epub-error">{error}</p>}
-      {loading && <p className="epub-loading">Loading book...</p>}
+      {loading && <LoadingState message="Loading book..." />}
 
       <div
         ref={viewerRef}

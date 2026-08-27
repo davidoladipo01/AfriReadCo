@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getContinueReading } from "../../services/reading.service";
 import { getBookCoverUrl } from "../../utils/bookCover";
+import LoadingState from "../common/LoadingState";
 
 const ContinueReading = () => {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ const ContinueReading = () => {
 
       {loading ? (
         <div className="bento-card bg-surface-container-low border-none premium-shadow">
-          <p className="text-on-surface-variant">Loading...</p>
+          <LoadingState />
         </div>
       ) : !entry?.book ? (
         <div className="bento-card flex flex-col items-center justify-center text-center gap-4 bg-surface-container-low border-none premium-shadow py-12">

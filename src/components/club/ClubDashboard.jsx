@@ -9,6 +9,7 @@ import ClubMembers from './ClubMembers';
 import ReadingTracker from './ReadingTracker';
 import './ClubDashboard.css';
 import API from '../../services/api';
+import LoadingState from '../common/LoadingState';
 
 
 const ClubDashboard = ({ user }) => {
@@ -91,9 +92,9 @@ const ClubDashboard = ({ user }) => {
         }));
     };
 
-    if (loading) return <div className="club-loading">Loading club...</div>;
-    if (error) return <div className="club-error">{error}</div>;
-    if (!club) return <div className="club-error">Club not found</div>;
+    if (loading) return <LoadingState message="Loading club..." />;
+    if (error) return <div className="club-error"><span className="material-symbols-outlined" aria-hidden="true">info</span><p>{error}</p></div>;
+    if (!club) return <div className="club-error"><span className="material-symbols-outlined" aria-hidden="true">menu_book</span><p>Club not found</p></div>;
 
     // Helper for Admin authorization check
     const currentUserId = user?._id || user?.id;
@@ -109,18 +110,22 @@ const ClubDashboard = ({ user }) => {
                     {club.coverImage ? (
                         <img src={club.coverImage} alt={club.name} />
                     ) : (
-                        <div className="club-cover-placeholder">📚</div>
+                        <div className="club-cover-placeholder" aria-hidden="true"><span className="material-symbols-outlined">menu_book</span></div>
                     )}
                 </div>
                 <div className="club-info">
                     <h1>{club.name}</h1>
                     <p className="club-description">{club.description}</p>
                     <div className="club-meta">
-                        <span className="privacy-badge">{club.privacy}</span>
-                        <span>{club.members?.length || 0} members</span>
+                        <span className={`privacy-badge ${club.privacy}`}>
+                            <span className="material-symbols-outlined" aria-hidden="true">{club.privacy === 'public' ? 'public' : 'lock'}</span>
+                            {club.privacy}
+                        </span>
+                        <span className="club-members"><span className="material-symbols-outlined" aria-hidden="true">groups</span>{club.members?.length || 0} members</span>
                         {club.currentBookId && (
                             <span className="current-book">
-                                📖 Reading: {club.currentBookId.title}
+                                <span className="material-symbols-outlined" aria-hidden="true">auto_stories</span>
+                                <span><small>Currently reading</small>{club.currentBookId.title}</span>
                             </span>
                         )}
                     </div>
@@ -144,25 +149,25 @@ const ClubDashboard = ({ user }) => {
                     className={activeTab === 'lounge' ? 'active' : ''}
                     onClick={() => setActiveTab('lounge')}
                 >
-                    💬 Lounge
+                    <span className="material-symbols-outlined" aria-hidden="true">forum</span> Lounge
                 </button>
                 <button
                     className={activeTab === 'chapters' ? 'active' : ''}
                     onClick={() => setActiveTab('chapters')}
                 >
-                    📖 Chapters
+                    <span className="material-symbols-outlined" aria-hidden="true">menu_book</span> Chapters
                 </button>
                 <button
                     className={activeTab === 'voting' ? 'active' : ''}
                     onClick={() => setActiveTab('voting')}
                 >
-                    🗳️ Vote
+                    <span className="material-symbols-outlined" aria-hidden="true">how_to_vote</span> Vote
                 </button>
                 <button
                     className={activeTab === 'members' ? 'active' : ''}
                     onClick={() => setActiveTab('members')}
                 >
-                    👥 Members
+                    <span className="material-symbols-outlined" aria-hidden="true">groups</span> Members
                 </button>
             </div>
 

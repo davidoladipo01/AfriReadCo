@@ -9,6 +9,7 @@ import Authguard from "./auth/Authguard";
 import DashboardLayout from "./layouts/DashboardLayout";
 import { DashboardProvider } from "./context/DashboardContext";
 import { SocketProvider } from "./context/SocketContext";
+import LoadingState from "./components/common/LoadingState";
 
 // Pages
 import Home from "./pages/Home";
@@ -25,6 +26,7 @@ import ClubDashboard from "./components/club/ClubDashboard";
 // Club Components / Pages
 import ClubList from "./components/club/ClubList";
 import CreateClub from "./components/club/CreateClub";
+import Profile from "./pages/Profile";
 
 function App() {
   const cookies = new Cookies();
@@ -57,7 +59,7 @@ function App() {
   }, [token]);
 
   if (loadingUser && token) {
-    return <div>Loading application...</div>; // Prevents socket connecting before user state resolves
+    return <LoadingState message="Loading application..." />; // Prevents socket connecting before user state resolves
   }
 
   return (
@@ -105,6 +107,7 @@ function App() {
                 path="settings"
                 element={<DashboardSectionPage title="Settings" />}
               />
+              <Route path="profile" element={<Profile />} />
             </Route>
 
             <Route path="/onboard" element={<Onboarding />} />

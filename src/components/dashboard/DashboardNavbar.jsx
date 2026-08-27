@@ -77,12 +77,12 @@ const DashboardNavbar = ({ onToggleSidebar, isDashboardHome }) => {
                 {!isDashboardHome && (
                     <div className="dashboard-search">
                         <div className="relative w-full">
-                            <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-                            <input
+                            {/* <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span> */}
+                            {/* <input
                                 className="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 focus:ring-2 focus:ring-primary text-body-md"
                                 placeholder="Search for books, authors, circles..."
                                 type="search"
-                            />
+                            /> */}
                         </div>
                     </div>
                 )}

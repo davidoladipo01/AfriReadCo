@@ -3,6 +3,8 @@ import { useSocket } from '../../context/SocketContext';
 import './ClubVoting.css';
 import API from '../../services/api';
 import { searchBooksAPI } from '../../services/reading.service';
+import Cookies from 'universal-cookie';
+import LoadingState from '../common/LoadingState';
 
 const ClubVoting = ({ clubId, user, isAdmin }) => {
     const { socket } = useSocket();
@@ -14,6 +16,8 @@ const ClubVoting = ({ clubId, user, isAdmin }) => {
     const [showNominateModal, setShowNominateModal] = useState(false);
     const [nominateSearch, setNominateSearch] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+
+    const token = new Cookies().get("token");
 
     useEffect(() => {
         if (clubId) fetchVoteSession();
@@ -37,7 +41,9 @@ const ClubVoting = ({ clubId, user, isAdmin }) => {
     const fetchVoteSession = async () => {
         try {
             setLoading(true);
-            const res = await API.get(`/api/clubs/${clubId}/vote-session`);
+            const res = await API.get(`/api/clubs/vote-session/${clubId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
 
             if (res.data.success) {
                 setVoteSession(res.data.voteSession);
@@ -54,7 +60,11 @@ const ClubVoting = ({ clubId, user, isAdmin }) => {
 
     const castVote = async (bookId) => {
         try {
-            const res = await API.post(`/api/clubs/${clubId}/vote`, { bookId });
+            const res = await API.post(
+                `/api/clubs/vote/${clubId}`,
+                { bookId },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
 
             if (res.data.success) {
                 setMyVote(bookId);
@@ -65,9 +75,29 @@ const ClubVoting = ({ clubId, user, isAdmin }) => {
         }
     };
 
+    const createVoteSession = async () => {
+        try {
+            const res = await API.post(
+                `/api/clubs/voteSession/${clubId}`,
+                { nominations: [] },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            if (res.data.success) {
+                setVoteSession(res.data.voteSession);
+            }
+        } catch (err) {
+            console.error('Failed to start vote session:', err);
+        }
+    };
+
     const nominateBook = async (bookId) => {
         try {
-            const res = await API.post(`/api/clubs/${clubId}/nominate`, { bookId });
+            const res = await API.post(
+                `/api/clubs/nominateBook/${clubId}`,
+                { bookId },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
 
             if (res.data.success) {
                 setVoteSession(res.data.voteSession);
@@ -82,7 +112,11 @@ const ClubVoting = ({ clubId, user, isAdmin }) => {
 
     const startVoting = async () => {
         try {
-            const res = await API.put(`/api/clubs/${clubId}/vote-session/start-voting`);
+            const res = await API.put(
+                `/api/clubs/vote-session/start-voting/${clubId}`,
+                {},
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
 
             if (res.data.success) {
                 setVoteSession(res.data.voteSession);
@@ -91,7 +125,6 @@ const ClubVoting = ({ clubId, user, isAdmin }) => {
             console.error('Start voting failed:', err);
         }
     };
-
     const searchBooks = async (query) => {
         setNominateSearch(query);
 
@@ -119,20 +152,20 @@ const ClubVoting = ({ clubId, user, isAdmin }) => {
         return voteCounts.find(v => (v.bookId === bookId || v._id === bookId))?.count || 0;
     };
 
-    if (loading) return <div className="voting-loading">Loading voting...</div>;
+    if (loading) return <LoadingState message="Loading voting..." />;
 
-    if (!voteSession) {
-        return (
-            <div className="club-voting empty">
-                <p>No active vote session</p>
-                {isAdmin && (
-                    <button className="btn-primary" onClick={() => {/* Handle create vote session modal */ }}>
-                        Start New Vote
-                    </button>
-                )}
-            </div>
-        );
-    }
+ if (!voteSession) {
+    return (
+        <div className="club-voting empty">
+            <p>No active vote session</p>
+            {isAdmin && (
+                <button className="btn-primary" onClick={createVoteSession}>
+                    Start New Vote
+                </button>
+            )}
+        </div>
+    );
+}
 
     const isNominating = voteSession.status === 'nominating';
     const isVoting = voteSession.status === 'voting';

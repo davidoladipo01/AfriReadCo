@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { useSocket } from '../../context/SocketContext';
 import API from '../../services/api';
 import './ReadingTracker.css';
+import Cookies from 'universal-cookie';
 
-const ReadingTracker = ({ 
-    book, 
-    myProgress, 
-    membersProgress = [], 
-    clubId, 
-    onProgressUpdate, 
-    isAdmin, 
-    schedule = [] 
+const ReadingTracker = ({
+    book,
+    myProgress,
+    membersProgress = [],
+    clubId,
+    onProgressUpdate,
+    isAdmin,
+    schedule = []
 }) => {
     const { socket } = useSocket();
-    
+
     // Dynamic chapter count fallback to book model or default 10
     const totalChapters = book?.totalChapters || book?.chaptersCount || 12;
 
@@ -46,11 +47,17 @@ const ReadingTracker = ({
 
         // 2. Persist to API via centralized Axios client
         try {
-            await API.post(`/api/clubs/${clubId}/progress`, {
-                bookId: book._id,
-                chapter: currentChapter,
-                percentComplete: percent
-            });
+            const token = new Cookies().get("token");
+
+            await API.put(
+                `/api/clubs/progress/${clubId}`,
+                {
+                    bookId: book._id,
+                    chapter: currentChapter,
+                    percentComplete: percent,
+                },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
 
             if (onProgressUpdate) {
                 onProgressUpdate(currentChapter, percent);
@@ -112,15 +119,15 @@ const ReadingTracker = ({
 
                             return (
                                 <div key={mp._id || index} className="member-progress-item">
-                                    <img 
-                                        src={userObj.avatar || '/default-avatar.png'} 
+                                    <img
+                                        src={userObj.avatar || '/default-avatar.png'}
                                         alt={userObj.username || 'Member'}
                                         className="member-avatar"
                                     />
                                     <div className="member-progress-bar">
-                                        <div 
+                                        <div
                                             className="member-fill"
-                                            style={{ 
+                                            style={{
                                                 width: `${mp.percentComplete || 0}%`,
                                                 backgroundColor: status.color
                                             }}

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getShelf } from "../../services/book.service";
 import { getBookCoverUrl } from "../../utils/bookCover";
+import LoadingState from "../common/LoadingState";
 
 const Bookshelf = () => {
   const [entries, setEntries] = useState([]);
@@ -40,7 +41,7 @@ const Bookshelf = () => {
 
       <div className="flex gap-3 md:gap-4 overflow-x-auto pb-6 no-scrollbar">
         {loading ? (
-          <p className="text-on-surface-variant">Loading...</p>
+          <LoadingState />
         ) : (
           entries.map(({ book }) =>
             book ? (

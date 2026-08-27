@@ -121,7 +121,7 @@ const CreateClub = ({ user }) => {
                     <button
                         type="button"
                         className="btn-secondary"
-                        onClick={() => navigate('/clubs')}
+                        onClick={() => navigate('/dashboard/communities')}
                         disabled={loading}
                     >
                         Cancel

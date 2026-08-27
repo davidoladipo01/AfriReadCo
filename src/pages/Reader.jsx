@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getReadingBook, startReadingBook } from "../services/reading.service";
 import EpubReader from "../components/reader/EpubReader";
+import LoadingState from "../components/common/LoadingState";
 
 const Reader = () => {
   const { id } = useParams();
@@ -27,7 +28,7 @@ const Reader = () => {
   }, [id]);
 
   if (loading) {
-    return <p>Loading book...</p>;
+    return <LoadingState message="Loading book..." />;
   }
 
   const book = readerData?.book;

@@ -8,8 +8,13 @@ const DashboardLayout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const location = useLocation();
     
-    // Check if we're on the exact dashboard page
-    const isDashboardHome = location.pathname === "/dashboard";
+    // Dashboard home uses the special top nav links.
+    // Profile and settings should match that same layout.
+    const isDashboardHome = [
+        "/dashboard",
+        "/dashboard/profile",
+        "/dashboard/settings",
+    ].includes(location.pathname);
     const isClubDashboard = /^\/dashboard\/communities\//.test(location.pathname);
 
     useEffect(() => {

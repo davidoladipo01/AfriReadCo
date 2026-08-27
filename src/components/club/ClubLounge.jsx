@@ -152,13 +152,24 @@ const ClubLounge = ({ clubId, user }) => {
     return (
         <div className="club-lounge">
             <div className="lounge-header">
-                <h3>💬 Club Lounge</h3>
-                <span className="online-count">
-                    {isConnected ? `🟢 ${onlineCount} online` : '🔴 Disconnected'}
+                <div className="lounge-heading">
+                    <span className="material-symbols-outlined" aria-hidden="true">chat_bubble</span>
+                    <div><h3>Club Lounge</h3><p>Your reading room</p></div>
+                </div>
+                <span className={`online-count ${isConnected ? 'connected' : 'disconnected'}`}>
+                    <span className="status-dot" aria-hidden="true" />
+                    <span className="material-symbols-outlined" aria-hidden="true">{isConnected ? 'groups' : 'cloud_off'}</span>
+                    {isConnected ? `${onlineCount} online` : 'Disconnected'}
                 </span>
             </div>
 
             <div className="messages-container">
+                {!messages.length && !typingUsers.length && (
+                    <div className="lounge-empty">
+                        <span className="material-symbols-outlined" aria-hidden="true">auto_stories</span>
+                        <p>Start the conversation around your current read.</p>
+                    </div>
+                )}
                 {messages.map((msg, index) => {
                     const msgUserId = msg.userId?._id || msg.userId;
                     const isMine = msgUserId?.toString() === currentUserId?.toString();
@@ -208,7 +219,7 @@ const ClubLounge = ({ clubId, user }) => {
                                             className="reply-btn"
                                             onClick={() => setReplyingTo(msg)}
                                         >
-                                            Reply
+                                            <span className="material-symbols-outlined" aria-hidden="true">reply</span> Reply
                                         </button>
                                         <div className="reactions">
                                             {['❤️', '👍', '🔥', '😂'].map(emoji => {
@@ -239,7 +250,7 @@ const ClubLounge = ({ clubId, user }) => {
                 {typingUsers.length > 0 && (
                     <div className="typing-indicator">
                         {typingUsers.map(u => u.userName || u.username).join(', ')}
-                        {typingUsers.length === 1 ? ' is' : ' are'} typing...
+                        {typingUsers.length === 1 ? ' is' : ' are'} writing<span className="typing-dots" aria-hidden="true"><i /><i /><i /></span>
                     </div>
                 )}
 
@@ -249,7 +260,7 @@ const ClubLounge = ({ clubId, user }) => {
             {replyingTo && (
                 <div className="replying-to-bar">
                     <span>Replying to <strong>{replyingTo.userName || replyingTo.username}</strong></span>
-                    <button onClick={() => setReplyingTo(null)}>✕</button>
+                    <button onClick={() => setReplyingTo(null)} aria-label="Cancel reply"><span className="material-symbols-outlined" aria-hidden="true">close</span></button>
                 </div>
             )}
 
@@ -262,7 +273,7 @@ const ClubLounge = ({ clubId, user }) => {
                     disabled={!isConnected}
                 />
                 <button type="submit" disabled={!newMessage.trim() || !isConnected}>
-                    Send
+                    <span>Send</span><span className="material-symbols-outlined" aria-hidden="true">send</span>
                 </button>
             </form>
         </div>

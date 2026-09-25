@@ -26,8 +26,20 @@ export const SocketProvider = ({ children, user }) => {
             return;
         }
 
-        const SOCKET_URL = import.meta.env.VITE_DEV_BASE_URL || 'http://localhost:5005';
-        
+        const SOCKET_URL = import.meta.env.MODE === 'production'
+            ? (
+                import.meta.env.VITE_PROD_BASE_URL ||
+                import.meta.env.VITE_API_BASE_URL ||
+                import.meta.env.VITE_DEV_BASE_URL ||
+                'http://localhost:5005'
+            )
+            : (
+                import.meta.env.VITE_DEV_BASE_URL ||
+                import.meta.env.VITE_API_BASE_URL ||
+                import.meta.env.VITE_PROD_BASE_URL ||
+                'http://localhost:5005'
+            );
+
         const newSocket = io(SOCKET_URL, {
             autoConnect: true,
             transports: ['websocket', 'polling']

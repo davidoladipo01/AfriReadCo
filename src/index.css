@@ -1805,7 +1805,8 @@ textarea {
   font-weight: 600;
 }
 
-.community-footer button {
+.community-footer .community-join {
+  display: inline-block;
   background: var(--color-secondary);
   color: white;
   border: none;
@@ -1813,10 +1814,11 @@ textarea {
   border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
+  text-decoration: none;
   transition: var(--transition-base);
 }
 
-.community-footer button:hover {
+.community-footer .community-join:hover {
   background: #5a3e2b;
 }
 
@@ -4320,7 +4322,7 @@ textarea {
     align-items: center;
   }
 
-  .community-footer button {
+  .community-footer .community-join {
     width: auto;
   }
 

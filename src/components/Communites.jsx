@@ -6,6 +6,7 @@ import book2 from '../assets/bk17_result_result.webp'
 import book3 from '../assets/mary_result_result.webp'
 import FadeUp from './FadeUp'
 import StaggerContainer from './StaggerContainer'
+import { Link } from 'react-router-dom'
 
 const Communites = () => {
   const communities = [
@@ -105,9 +106,9 @@ const Communites = () => {
                   {community.members}
                 </small>
 
-                <button>
+                <Link to="/dashboard/communities" className="community-join">
                   Join
-                </button>
+                </Link>
 
               </div>
 

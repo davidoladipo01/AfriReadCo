@@ -75,7 +75,7 @@ const Logo = ({
       <text
         x="60"
         y="36"
-        fontFamily="Georgia, serif"
+        fontFamily="'DM Sans', 'Segoe UI', sans-serif"
         fontSize="22"
         fontWeight="700"
         fill={textColor}

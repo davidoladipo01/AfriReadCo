@@ -9,7 +9,7 @@ const Pg1 = () => {
     <div>
       <section className='sec1_small'>
         <div className="home-container">
-        <div className="hero-overlay"></div>
+          <div className="hero-overlay"></div>
           <div className="home-hero-content">
             {/* <span className='hero-content1'>AfriReadCo</span> */}
             <motion.div className='hero-content2' initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: 'easeOut', delay: 0.12 }}>Africa's Home <span>for Readers</span></motion.div>

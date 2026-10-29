@@ -6,10 +6,14 @@ import Logo from '../components/Logo'
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/auth.service"
 import { toast } from 'react-toastify';
+import SocialAuthButtons from '../components/SocialAuthButtons';
+// import { useSSO } from '@clerk/react'
+
 // const navigate = useNavigate();
 
 const Register = () => {
     const navigate = useNavigate();
+    // const { startSSOFlow } = useSSO()
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -75,7 +79,31 @@ const Register = () => {
         }),
     })
 
-    console.log(formik.values)
+    // const handleGoogleSignUp = async () => {
+    //     try {
+    //         const { createdSessionId, setActive } = await startSSOFlow({
+    //             strategy: "oauth_google",
+    //             redirectUrl: "/sso-callback",
+    //         })
+
+    //         if (createdSessionId) {
+    //             await setActive({
+    //                 session: createdSessionId,
+    //             })
+
+    //             navigate("/dashboard")
+    //         }
+    //     } catch (error) {
+    //         console.error("Google sign-up failed:", error)
+
+    //         toast.error(
+    //             error?.errors?.[0]?.message ||
+    //             "Unable to sign up with Google"
+    //         )
+    //     }
+    // }
+
+    // console.log(formik.values)
 
     return (
         <div className="register-page" >
@@ -185,17 +213,23 @@ const Register = () => {
                     </button>
                 </form>
 
-                {/* <div className="divider">
+                <div className="divider">
                     <span>or continue with</span>
-                </div> */}
+                </div>
 
-                {/* <button className="google-btn" type="button">
+                {/* <button
+                    className="google-btn"
+                    type="button"
+                    onClick={handleGoogleSignUp}
+                >
                     <img
                         src="https://www.svgrepo.com/show/475656/google-color.svg"
                         alt="Google"
                     />
-                    Sign up with Google
+                    <span>Sign up with Google</span>
                 </button> */}
+
+                <SocialAuthButtons />
 
                 <p className="signin-text">
                     Already have an account?<Link to={"/Login"}>Login</Link>

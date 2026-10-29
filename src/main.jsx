@@ -5,18 +5,23 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './index.css'
 import App from './App.jsx'
+import { ClerkProvider } from '@clerk/react'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        newestOnTop
-        pauseOnHover
-        theme="light"
-      />
-    </BrowserRouter>
+    <ClerkProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}>
+      <BrowserRouter>
+        <App />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          newestOnTop
+          pauseOnHover
+          theme="light"
+        />
+      </BrowserRouter>
+    </ClerkProvider>
   </StrictMode>,
+
+
 )

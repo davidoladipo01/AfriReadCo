@@ -14,16 +14,16 @@ const SidebarLinks = [
         icon: "groups",
         path: "/dashboard/communities",
     },
-    {
-        title: "Discover",
-        icon: "travel_explore",
-        path: "/dashboard/discover",
-    },
-    {
-        title: "Analytics",
-        icon: "monitoring",
-        path: "/dashboard/analytics",
-    },
+    // {
+    //     title: "Discover",
+    //     icon: "travel_explore",
+    //     path: "/dashboard/discover",
+    // },
+    // {
+    //     title: "Analytics",
+    //     icon: "monitoring",
+    //     path: "/dashboard/analytics",
+    // },
 ];
 
 export default SidebarLinks;

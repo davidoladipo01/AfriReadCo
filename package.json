@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@clerk/react": "^6.17.2",
     "@uidotdev/usehooks": "github:uidotdev/usehooks",
     "axios": "^1.18.1",
     "epubjs": "^0.3.93",

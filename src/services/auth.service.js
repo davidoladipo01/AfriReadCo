@@ -8,8 +8,13 @@ const loginUser = (credentials)=>{
     return API.post("/api/auth/login", credentials);
 }
 
+const socialLogin = (clerkToken)=>{
+    console.log("clerkToken:", clerkToken);
+    return API.post("/api/auth/social", { clerkToken });
+}
+
 const logoutUser =()=>{
     return API.post("/api/auth/logout");
 }
 
-export { registerUser, loginUser, logoutUser }
+export { registerUser, loginUser, socialLogin, logoutUser }

@@ -1,12 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
+import Cookies from "universal-cookie";
 
-function Authguard({
-    isAuth,
-    redirectPath = "/login",
-    children,
-}) {
+function Authguard({ redirectPath = "/login", children }) {
+    const token = new Cookies().get("token");
 
-    if (!isAuth) {
+    if (!token) {
         return <Navigate to={redirectPath} replace />;
     }
 

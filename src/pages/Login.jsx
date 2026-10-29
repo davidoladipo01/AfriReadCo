@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import { loginUser } from '../services/auth.service';
 import { toast } from 'react-toastify';
 import Cookies from 'universal-cookie';
+import SocialAuthButtons from '../components/SocialAuthButtons';
 
 
 const Login = () => {
@@ -138,15 +139,10 @@ const Login = () => {
           </div>
 
           {/* Social login */}
-          {/* <button className="google-btn" type="button">
-            <img
-              src="https://www.svgrepo.com/show/475656/google-color.svg"
-              alt="Google"
-            />
-            Continue with Google
-          </button> */}
+          
         </form>
 
+        <SocialAuthButtons />
         <p className="ar-footer-text">
 
           Don't have an account? <a href="#"><Link to={"/register"}>Create an Account</Link></a>
